@@ -1,0 +1,10 @@
+variable "eks_cluster_name" {}
+variable "eks_cluster_version" {}
+variable "eks_cluster_service_ipv4_cidr" {}
+variable "eks_cluster_endpoint_public_access" {}
+variable "eks_cluster_endpoint_private_access" {}
+variable "eks_cluster_endpoint_access_cidrs" {}
+variable "common_tags" {}
+variable "naming_prefix" {}
+variable "private_subnets" {}
+variable "public_subnets" {}

@@ -1,0 +1,11 @@
+variable "eks_cluster_name" {}
+variable "eks_cluster_version" {}
+variable "common_tags" {}
+variable "naming_prefix" {}
+variable "private_subnets" {}
+variable "public_subnets" {}
+variable "eks_cluster_node_group_name" {}
+variable "key_name" {}
+variable "instance_types" {}
+variable "capacity_type" {}
+variable "node_group_public" {}
