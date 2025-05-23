@@ -10,18 +10,18 @@ module "vpc" {
   aws_azs              = var.aws_azs
 }
 
-module "bastion_host" {
-  source           = "./modules/bastion"
-  vpc_id           = module.vpc.vpc_id
-  instance_type    = var.instance_type
-  sg_ingress_ports = var.sg_ingress_public
-  ec2_name         = var.ec2_name
-  naming_prefix    = local.naming_prefix
-  key_name         = var.key_name
-  subnet_id        = module.vpc.public_subnets[0]
-  common_tags      = local.common_tags
-depends_on = [ module.vpc ]
-}
+# module "bastion_host" {
+#   source           = "./modules/bastion"
+#   vpc_id           = module.vpc.vpc_id
+#   instance_type    = var.instance_type
+#   sg_ingress_ports = var.sg_ingress_public
+#   ec2_name         = var.ec2_name
+#   naming_prefix    = local.naming_prefix
+#   key_name         = var.key_name
+#   subnet_id        = module.vpc.public_subnets[0]
+#   common_tags      = local.common_tags
+# depends_on = [ module.vpc ]
+# }
 
 module "eks_cluester" {
   source                              = "./modules/eks-cluster"
@@ -38,10 +38,9 @@ module "eks_cluester" {
    depends_on = [ module.vpc ]
 }
 
-module "eks_node_group_public" {
+module "eks_node_group_public_private" {
   source = "./modules/eks-node-group"
   eks_cluster_node_group_name = var.eks_cluster_node_group_name
-  node_group_public = var.eks_node_group_public
   eks_cluster_name = module.eks_cluester.eks_cluster_name
   capacity_type = var.capacity_type
   eks_cluster_version = var.eks_cluster_version
@@ -54,21 +53,9 @@ module "eks_node_group_public" {
   depends_on = [ module.eks_cluester ]
 }
 
-module "eks_node_group_private" {
-  source = "./modules/eks-node-group"
-  eks_cluster_node_group_name = var.eks_cluster_node_group_name
-  node_group_public = var.eks_node_group_public
-  eks_cluster_name = module.eks_cluester.eks_cluster_name
-  capacity_type = var.capacity_type
-  eks_cluster_version = var.eks_cluster_version
-  common_tags = local.common_tags
-  naming_prefix = local.naming_prefix
-  key_name = var.key_name
-  public_subnets = module.vpc.public_subnets 
-  private_subnets = module.vpc.private_subnets
-  instance_types = var.instance_types
-  depends_on = [ module.eks_cluester ]
-}
+
+
+
 
 
 

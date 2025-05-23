@@ -1,0 +1,33 @@
+Configure kubeconfig for kubelet
+
+aws eks --region us-east-1 update-kubeconfig --name  demo-eks
+
+kunectl get nodes
+kubectl get nodes -o wide
+
+kubectl get svc
+
+---------------------------
+ps -ef | grep kube
+
+cat /etc/kubernetes/kubelet/kubelet-config.json
+
+cat /var/lib/kubelet/kubeconfig
+
+nslookup https://D7D657EBBAF36CDB03BCD1AA5364D5B3.gr7.us-east-1.eks.amazonaws.com
+
+---------------------------kube-system-------------------
+aws-node - container - demonset
+kube-proxy - container - demonset
+core-dns  - container - deployment
+
+------------------------------------------
+# Get OpenID Connect provider URL for EKS Cluster
+Go to Services -> EKS -> hr-dev-eksdemo1 -> Configuration -> Details -> OpenID Connect provider URL
+
+# EKS OpenID Connect Well Known Configuration URL
+<EKS OpenID Connect provider URL>/.well-known/openid-configuration
+
+# Sample
+https://oidc.eks.us-east-1.amazonaws.com/id/C7F5DC7E4B1AA765CA712C54F605BB75/.well-known/openid-configuration
+

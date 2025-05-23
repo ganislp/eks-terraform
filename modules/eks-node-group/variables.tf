@@ -8,4 +8,3 @@ variable "eks_cluster_node_group_name" {}
 variable "key_name" {}
 variable "instance_types" {}
 variable "capacity_type" {}
-variable "node_group_public" {}
