@@ -126,7 +126,7 @@ variable "capacity_type"{
 
 variable "instance_types" {
   type = list(string)
-  default = [ "t2.micro" ]
+  default = [ "t3.medium" ]
 }
 
 variable "eks_node_group_public" {

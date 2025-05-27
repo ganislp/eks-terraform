@@ -34,7 +34,7 @@ resource "aws_iam_role" "ebs_cis_iam_role" {
 
 resource "aws_iam_role_policy_attachment" "iam_role_policy_att" {
   role       = aws_iam_role.ebs_cis_iam_role.name
-  policy_arn = aws_iam_role.ebs_cis_iam_role.arn
+  policy_arn = aws_iam_policy.ebs_cis_iam_policy.arn
 }
 
 output "ebs_csi_iam_role_arn" {
