@@ -2,7 +2,7 @@ resource "kubernetes_service_v1" "lb_service" {
   metadata {
     name = "usermgmt-webapp-lb-service"
     annotations = {
-        "service.beta.kubernetes.io/aws-load-balancer-type": "nlb"
+      "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb"
     }
   }
   spec {
@@ -11,7 +11,7 @@ resource "kubernetes_service_v1" "lb_service" {
     }
     port {
       target_port = "8080"
-      port = "80"
+      port        = "80"
     }
     type = "LoadBalancer"
   }

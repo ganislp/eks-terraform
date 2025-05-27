@@ -22,7 +22,29 @@ data "aws_iam_policy_document" "iam_policy_document" {
 
 resource "aws_iam_role" "irsa_iam_role" {
   name               = "irsa_iam_role"
-  assume_role_policy = data.aws_iam_policy_document.iam_policy_document.json
+ assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Federated = "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_arn}"
+        }
+        Condition = {
+          StringEquals = {            
+            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub": "system:serviceaccount:default:irsa-demo-sa"
+          }
+        }        
+
+      },
+    ]
+  })
+
+
+
+  # assume_role_policy = data.aws_iam_policy_document.iam_policy_document.json
 }
 
 resource "aws_iam_role_policy_attachment" "irsa_iam_role_attachment" {

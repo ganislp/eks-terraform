@@ -3,6 +3,6 @@ resource "kubernetes_config_map_v1" "usermanagement_dbcreation_script" {
     name = "usermanagement-dbcreation-script"
   }
   data = {
-     "webappdb.sql" = "${file("${path.module}/webappdb.sql")}"
+    "webappdb.sql" = "${file("${path.module}/webappdb.sql")}"
   }
 }

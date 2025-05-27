@@ -17,7 +17,7 @@ resource "kubernetes_job_v1" "irsa_demo" {
           image = "amazon/aws-cli:latest"
           args  = ["s3", "ls"]
 
-          
+
           resources {
             limits = {
               cpu    = "0.5"
@@ -29,10 +29,10 @@ resource "kubernetes_job_v1" "irsa_demo" {
             }
           }
         }
-        
+
         restart_policy = "Never"
       }
     }
   }
-  wait_for_completion = false 
+  wait_for_completion = false
 }

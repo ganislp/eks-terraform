@@ -14,37 +14,17 @@ resource "kubernetes_deployment_v1" "mysql_deployment" {
     }
     template {
       metadata {
-        name = "mysql"
+       labels = {
+          app = "mysql"
+        }
       }
       spec {
-        container {
-          name = "mysql"
-          image = "mysql:5.6"
-          image_pull_policy = "Always"
-          port {
-            name = "mysql"
-            container_port = "3306"
-          }
-          env {
-            name = "MYSQL_ROOT_PASSWORD"
-            value = "dbpassword11"
-          }
-          volume_mount {
-            name = "mysql-persistent-storage"
-            mount_path = "/var/lib/mysql"
-          }
-          volume_mount {
-            name = "usermanagement-dbcreation-script"
-            mount_path = "/docker-entrypoint-initdb.d"
-          }
-
-        }
-        volume {
+         volume {
           name = "mysql-persistent-storage"
           persistent_volume_claim {
-           claim_name = "ebs-mysql-pv-claim"
+            claim_name = "ebs-mysql-pv-claim"
           }
-          
+
         }
         volume {
           name = "usermanagement-dbcreation-script"
@@ -52,8 +32,31 @@ resource "kubernetes_deployment_v1" "mysql_deployment" {
             name = "usermanagement-dbcreation-script"
           }
         }
+        container {
+          name              = "mysql"
+          image             = "mysql:5.6"
+          image_pull_policy = "Always"
+          port {
+            name           = "mysql"
+            container_port = "3306"
+          }
+          env {
+            name  = "MYSQL_ROOT_PASSWORD"
+            value = "dbpassword11"
+          }
+          volume_mount {
+            name       = "mysql-persistent-storage"
+            mount_path = "/var/lib/mysql"
+          }
+          volume_mount {
+            name       = "usermanagement-dbcreation-script"
+            mount_path = "/docker-entrypoint-initdb.d"
+          }
+
+        }
+
       }
     }
-    
+
   }
 }

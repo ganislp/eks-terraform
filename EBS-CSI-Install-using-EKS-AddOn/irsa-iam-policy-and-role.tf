@@ -28,8 +28,8 @@ output "ebs_cis_iam_policy_arn" {
 }
 
 resource "aws_iam_role" "ebs_cis_iam_role" {
-  name               = "ebs_csi_iam_role"
-  assume_role_policy =   jsonencode({
+  name = "ebs_csi_iam_role"
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -40,10 +40,10 @@ resource "aws_iam_role" "ebs_cis_iam_role" {
           Federated = "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_arn}"
         }
         Condition = {
-          StringEquals = {            
-            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+          StringEquals = {
+            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub" : "system:serviceaccount:kube-system:ebs-csi-controller-sa"
           }
-        }        
+        }
 
       },
     ]
